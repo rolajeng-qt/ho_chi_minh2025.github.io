@@ -1,12 +1,27 @@
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>胡志明市旅行計劃</title>
+    <title>胡志明市四天三夜｜東方小巴黎自由行</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #e84393;
+            --background-light: #fafafa;
+            --background-card: #ffffff;
+            --text-dark: #1a1a1a;
+            --text-regular: #2c2c2c;
+            --text-light: #666;
+            --border-color: #f0f0f0;
+            --shadow-light: 0 8px 32px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,20 +31,20 @@
         body {
             font-family: 'Inter', 'Microsoft JhengHei', sans-serif;
             line-height: 1.6;
-            background: #fafafa;
-            color: #2c2c2c;
+            background: var(--background-light);
+            color: var(--text-regular);
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background: var(--background-card);
             min-height: 100vh;
         }
         
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
             padding: 80px 40px 60px;
             text-align: center;
@@ -90,7 +105,7 @@
         .section-title {
             font-size: clamp(1.8rem, 3vw, 2.5rem);
             font-weight: 700;
-            color: #1a1a1a;
+            color: var(--text-dark);
             margin-bottom: 48px;
             text-align: center;
             position: relative;
@@ -104,28 +119,29 @@
             transform: translateX(-50%);
             width: 60px;
             height: 4px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border-radius: 2px;
         }
         
         /* Overview Grid */
         .overview-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 32px;
             margin-top: 48px;
         }
         
         .overview-card {
-            background: white;
+            background: var(--background-card);
             border-radius: 20px;
             padding: 40px 32px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-            border: 1px solid #f0f0f0;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         
         .overview-card::before {
@@ -135,18 +151,18 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         }
         
         .overview-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-hover);
         }
         
         .overview-card h4 {
             font-size: 1.3rem;
             font-weight: 600;
-            color: #1a1a1a;
+            color: var(--text-dark);
             margin-bottom: 16px;
             line-height: 1.4;
         }
@@ -154,46 +170,58 @@
         .overview-card p {
             font-size: 1rem;
             line-height: 1.6;
-            color: #666;
+            color: var(--text-light);
         }
+
+        .overview-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .overview-card a:hover {
+            color: var(--secondary-color);
+        }
+
         .flight-block {
-        margin-bottom: 12px;
-        padding-bottom: 12px;
-        border-bottom: 1px dashed #ddd;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #ddd;
         }
 
         .flight-block:last-child {
-        border-bottom: none;
+            border-bottom: none;
         }
 
         .label {
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 2px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
         }
 
         .date {
-        font-size: 0.9rem;
-        color: #777;
-        margin-bottom: 4px;
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 4px;
         }
 
         .route {
-        font-size: 1rem;
-        color: #555;
+            font-size: 1rem;
+            color: #555;
         }
         
         /* Day Schedule */
         .day-schedule {
-            margin-bottom: 48px;
+            margin-bottom: 80px;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-            border: 1px solid #f0f0f0;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color);
         }
         
         .day-header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             padding: 32px 40px;
             font-weight: 700;
@@ -203,7 +231,7 @@
         
         .day-content {
             padding: 48px 40px;
-            background: white;
+            background: var(--background-card);
         }
         
         /* Options Section */
@@ -229,11 +257,11 @@
         }
         
         .option-card {
-            background: white;
+            background: var(--background-card);
             border-radius: 20px;
             padding: 32px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            border: 2px solid #f0f0f0;
+            border: 2px solid var(--border-color);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -241,7 +269,7 @@
         
         .option-card:hover {
             transform: translateY(-4px);
-            border-color: #667eea;
+            border-color: var(--primary-color);
             box-shadow: 0 16px 48px rgba(102, 126, 234, 0.15);
         }
         
@@ -249,7 +277,7 @@
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 16px;
-            color: #1a1a1a;
+            color: var(--text-dark);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -258,7 +286,7 @@
         .option-details {
             font-size: 0.95rem;
             line-height: 1.6;
-            color: #666;
+            color: var(--text-light);
         }
         
         .option-details p {
@@ -266,7 +294,7 @@
         }
         
         .option-details strong {
-            color: #1a1a1a;
+            color: var(--text-dark);
             font-weight: 600;
         }
         
@@ -276,15 +304,15 @@
         }
         
         .option-detail {
-            background: #fafafa;
+            background: var(--background-light);
             border-radius: 16px;
             padding: 32px;
             margin-bottom: 24px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid var(--primary-color);
         }
         
         .option-detail h4 {
-            color: #667eea;
+            color: var(--primary-color);
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 16px;
@@ -307,7 +335,7 @@
         }
         
         .option-detail li strong {
-            color: #667eea;
+            color: var(--primary-color);
             font-weight: 600;
             min-width: 80px;
             display: inline-block;
@@ -320,7 +348,7 @@
             align-items: flex-start;
             gap: 20px;
             padding: 20px 0;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid var(--border-color);
         }
         
         .time-activity:last-child {
@@ -328,7 +356,7 @@
         }
         
         .time-badge {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             padding: 12px 20px;
             border-radius: 25px;
@@ -342,13 +370,13 @@
         
         .activity-content {
             flex: 1;
-            color: #2c2c2c;
+            color: var(--text-regular);
             line-height: 1.6;
             font-size: 1rem;
         }
         
         .activity-content strong {
-            color: #667eea;
+            color: var(--primary-color);
             font-weight: 600;
         }
         
@@ -364,7 +392,7 @@
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 32px;
-            color: #2c2c2c;
+            color: var(--text-regular);
             text-align: center;
         }
         
@@ -373,14 +401,23 @@
             margin-bottom: 16px;
             padding: 20px 24px;
             border-radius: 12px;
-            border-left: 4px solid #fd79a8;
+            border-left: 4px solid var(--accent-color);
             font-size: 0.95rem;
             line-height: 1.6;
         }
         
         .tip-item strong {
-            color: #e84393;
+            color: var(--accent-color);
             font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
         }
         
         /* Responsive Design */
@@ -395,7 +432,6 @@
             
             .overview-grid {
                 grid-template-columns: 1fr;
-                grid-template-rows: auto;
                 gap: 24px;
             }
             
@@ -451,57 +487,57 @@
 </head>
 <body>
     <div class="container">
-        <div class="hero">
+        <header class="hero">
             <div class="hero-content">
                 <h1>🇻🇳 東方小巴黎之旅</h1>
-                <div class="subtitle">胡志明市四天三夜精彩行程</div>
-                <div class="intro-text">
+                <div class="subtitle">胡志明市四天三夜自由行行程規劃</div>
+                <p class="intro-text">
                     胡志明市四天三夜的行程，結合了歷史文化、在地體驗與美食探索，專為喜愛自由彈性又不想花費太多心力的旅人設計。我們將帶您深入這座「東方小巴黎」，體驗它獨特的魅力。
-                </div>
+                </p>
             </div>
-        </div>
+        </header>
         
-        <div class="content">
-            <div class="section">
+        <main class="content">
+            <section class="section">
                 <h2 class="section-title">✈️ 航班與住宿資訊</h2>
                 <div class="overview-grid">
-                    <div class="overview-card">
-                    <h4>✈️ 航班資訊</h4>
-                    <div class="flight-block">
-                        <p class="label">去程</p>
-                        <p class="date">2025/09/26（五）</p>
-                        <p class="route">19:35 台北（TPE） → 22:00 胡志明市（SGN）</p>
-                    </div>
-                    <div class="flight-block">
-                        <p class="label">回程</p>
-                        <p class="date">2025/09/30（二）</p>
-                        <p class="route">12:50 胡志明市（SGN） → 17:15 台北（TPE）</p>
-                    </div>
-                    </div>
+                    <article class="overview-card">
+                        <h4>✈️ 航班資訊</h4>
+                        <div class="flight-block">
+                            <p class="label">去程</p>
+                            <p class="date">2025/09/26（五）</p>
+                            <p class="route">19:35 台北（TPE） → 22:00 胡志明市（SGN）</p>
+                        </div>
+                        <div class="flight-block">
+                            <p class="label">回程</p>
+                            <p class="date">2025/09/30（二）</p>
+                            <p class="route">12:50 胡志明市（SGN） → 17:15 台北（TPE）</p>
+                        </div>
+                    </article>
 
-                    <div class="overview-card">
+                    <article class="overview-card">
                         <h4>🏨 住宿建議</h4>
                         <p><strong>The Hammock Hotel Ben Thanh</strong><br>
                         CP值高、活潑風格、鄰近濱城市場，地理位置絕佳，步行即可到達主要景點。</p>
-                    </div>
-                    <div class="overview-card">
+                    </article>
+                    <article class="overview-card">
                         <h4>🗓️ 四天行程重點</h4>
-                        <p><strong>Day 1：</strong>晚間抵達，輕鬆夜市初探<br>
-                        <strong>Day 2：</strong>三選一精彩一日遊<br>
-                        <strong>Day 3：</strong>法式建築與歷史巡禮<br>
-                        <strong>Day 4：</strong>採購伴手禮，準備歸途</p>
-                    </div>
-                    <div class="overview-card">
+                        <p><a href="#day1"><strong>Day 1：</strong>晚間抵達，輕鬆夜市初探</a></p>
+                        <p><a href="#day2"><strong>Day 2：</strong>三選一精彩一日遊</a></p>
+                        <p><a href="#day3"><strong>Day 3：</strong>法式建築與歷史巡禮</a></p>
+                        <p><a href="#day4"><strong>Day 4：</strong>採購伴手禮，準備歸途</a></p>
+                    </article>
+                    <article class="overview-card">
                         <h4>🌟 行程特色</h4>
                         <p>結合歷史文化、自然體驗與美食探索，專為喜愛自由彈性的旅人設計，深度體驗「東方小巴黎」的獨特魅力。</p>
-                    </div>
+                    </article>
                 </div>
-            </div>
+            </section>
             
-            <div class="section">
+            <section class="section">
                 <h2 class="section-title">📅 詳細行程安排</h2>
                 
-                <div class="day-schedule">
+                <article id="day1" class="day-schedule">
                     <div class="day-header">第一天：飛向東方小巴黎，夜色初探</div>
                     <div class="day-content">
                         <div class="time-activity">
@@ -523,9 +559,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </article>
                 
-                <div class="day-schedule">
+                <article id="day2" class="day-schedule">
                     <div class="day-header">第二天：精彩一日遊三選一</div>
                     <div class="day-content">
                         <div class="options-header">
@@ -533,38 +569,38 @@
                         </div>
                         
                         <div class="options-grid">
-                            <div class="option-card">
+                            <a href="#option-mekong" class="option-card">
                                 <h4>🛶 方案一：湄公河+古芝道一日遊</h4>
                                 <div class="option-details">
                                     <p><strong>上午：</strong>探索古芝地道，了解越戰歷史</p>
                                     <p><strong>下午：</strong>湄公河三角洲，體驗水上生活</p>
                                     <p><strong>特色：</strong>歷史文化 + 自然生態完美結合</p>
                                 </div>
-                            </div>
+                            </a>
                             
-                            <div class="option-card">
+                            <a href="#option-vungtau" class="option-card">
                                 <h4>🏖️ 方案二：頭頓一日遊</h4>
                                 <div class="option-details">
                                     <p><strong>亮點：</strong>海濱度假城市，法式建築</p>
                                     <p><strong>景點：</strong>耶穌山、燈塔、海灘</p>
                                     <p><strong>特色：</strong>放鬆海濱時光，新鮮海鮮</p>
                                 </div>
-                            </div>
+                            </a>
                             
-                            <div class="option-card">
+                            <a href="#option-muine" class="option-card">
                                 <h4>🏜️ 方案三：美奈一日遊</h4>
                                 <div class="option-details">
                                     <p><strong>亮點：</strong>紅白沙丘、漁村風情</p>
                                     <p><strong>景點：</strong>仙女溪、紅沙丘日落</p>
                                     <p><strong>特色：</strong>沙漠奇景，攝影天堂</p>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         
                         <div class="detailed-options">
-                            <h4 style="color: #667eea; margin-bottom: 24px; font-size: 1.3rem;">📋 各方案詳細說明</h4>
+                            <h4 style="color: var(--primary-color); margin-bottom: 24px; font-size: 1.3rem;">📋 各方案詳細說明</h4>
                             
-                            <div class="option-detail">
+                            <article id="option-mekong" class="option-detail">
                                 <h4>🛶 方案一：湄公河+古芝道一日遊</h4>
                                 <ul>
                                     <li><strong>07:30</strong> 酒店接送出發</li>
@@ -573,9 +609,9 @@
                                     <li><strong>14:00-17:00</strong> 湄公河三角洲：遊船、椰子糖工廠、手搖船體驗</li>
                                     <li><strong>18:30</strong> 返回胡志明市</li>
                                 </ul>
-                            </div>
+                            </article>
                             
-                            <div class="option-detail">
+                            <article id="option-vungtau" class="option-detail">
                                 <h4>🏖️ 方案二：頭頓一日遊</h4>
                                 <ul>
                                     <li><strong>07:00</strong> 酒店接送出發（車程約2小時）</li>
@@ -585,9 +621,9 @@
                                     <li><strong>14:30</strong> 海灘時光，放鬆戲水</li>
                                     <li><strong>16:30</strong> 返回胡志明市</li>
                                 </ul>
-                            </div>
+                            </article>
                             
-                            <div class="option-detail">
+                            <article id="option-muine" class="option-detail">
                                 <h4>🏜️ 方案三：美奈一日遊</h4>
                                 <ul>
                                     <li><strong>06:00</strong> 酒店接送出發（車程約3.5小時）</li>
@@ -597,12 +633,12 @@
                                     <li><strong>16:00</strong> 紅沙丘：觀賞絕美日落</li>
                                     <li><strong>17:30</strong> 返回胡志明市</li>
                                 </ul>
-                            </div>
+                            </article>
                         </div>
                     </div>
-                </div>
+                </article>
                 
-                <div class="day-schedule">
+                <article id="day3" class="day-schedule">
                     <div class="day-header">第三天：法式風情與歷史迴廊</div>
                     <div class="day-content">
                         <div class="time-activity">
@@ -646,9 +682,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </article>
                 
-                <div class="day-schedule">
+                <article id="day4" class="day-schedule">
                     <div class="day-header">第四天：採買伴手禮與美好歸途</div>
                     <div class="day-content">
                         <div class="time-activity">
@@ -678,13 +714,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </article>
+            </section>
             
-            <div class="tips-section">
+            <section class="tips-section">
                 <div class="tips-title">💡 溫馨提醒</div>
                 <div class="tip-item">
-                    <strong>交通</strong>：在胡志明市，Grab是您最方便、價格透明的交通方式，包含汽車與機車選項。
+                    <strong>交通</strong>：在胡志明市，Grab是您最方便、價格透明的交通方式，包含汽車與機車選項。機車適合短程移動或避開塞車，汽車則適合多人或攜帶行李時使用。
                 </div>
                 <div class="tip-item">
                     <strong>天氣</strong>：九月是胡志明市的雨季，建議隨身攜帶雨具，通常是午後雷陣雨，來得快去得也快。
@@ -692,8 +728,11 @@
                 <div class="tip-item">
                     <strong>換匯</strong>：建議在機場先換少量越盾，到市區的銀樓或金飾店換匯，匯率會更好。
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
+        <footer class="footer">
+            &copy; 2025 胡志明市旅行計劃. All Rights Reserved.
+        </footer>
     </div>
 </body>
 </html>
