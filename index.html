@@ -1,683 +1,540 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>胡志明市旅行計劃</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Microsoft JhengHei', sans-serif;
-            line-height: 1.6;
-            background: #fafafa;
-            color: #2c2c2c;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 40px 60px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" patternUnits="userSpaceOnUse" width="100" height="100"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="40" r="0.8" fill="rgba(255,255,255,0.03)"/><circle cx="40" cy="80" r="1.2" fill="rgba(255,255,255,0.04)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
-        }
-
-        .hero .subtitle {
-            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-            font-weight: 400;
-            opacity: 0.9;
-            margin-bottom: 32px;
-        }
-
-        .hero .intro-text {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            line-height: 1.7;
-            opacity: 0.95;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 24px 32px;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Content Sections */
-        .content {
-            padding: 80px 40px;
-        }
-
-        .section {
-            margin-bottom: 80px;
-        }
-
-        .section-title {
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 48px;
-            text-align: center;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-
-        /* Overview Grid */
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 32px;
-            margin-top: 48px;
-        }
-
-        .overview-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px 32px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-            border: 1px solid #f0f0f0;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .overview-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-        }
-
-        .overview-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
-        }
-
-        .overview-card h4 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 16px;
-            line-height: 1.4;
-        }
-
-        .overview-card p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #666;
-        }
-        .flight-block {
-        margin-bottom: 12px;
-        padding-bottom: 12px;
-        border-bottom: 1px dashed #ddd;
-        }
-
-        .flight-block:last-child {
-        border-bottom: none;
-        }
-
-        .label {
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 2px;
-        }
-
-        .date {
-        font-size: 0.9rem;
-        color: #777;
-        margin-bottom: 4px;
-        }
-
-        .route {
-        font-size: 1rem;
-        color: #555;
-        }
-
-        /* Day Schedule */
-        .day-schedule {
-            margin-bottom: 48px;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-            border: 1px solid #f0f0f0;
-        }
-
-        .day-header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 32px 40px;
-            font-weight: 700;
-            font-size: 1.4rem;
-            position: relative;
-        }
-
-        .day-content {
-            padding: 48px 40px;
-            background: white;
-        }
-
-        /* Options Section */
-        .options-header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 24px 32px;
-            border-radius: 16px;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .options-header h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            margin-bottom: 48px;
-        }
-
-        .option-card {
-            background: white;
-            border-radius: 20px;
-            padding: 32px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            border: 2px solid #f0f0f0;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .option-card:hover {
-            transform: translateY(-4px);
-            border-color: #667eea;
-            box-shadow: 0 16px 48px rgba(102, 126, 234, 0.15);
-        }
-
-        .option-card h4 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: #1a1a1a;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .option-details {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #666;
-        }
-
-        .option-details p {
-            margin-bottom: 8px;
-        }
-
-        .option-details strong {
-            color: #1a1a1a;
-            font-weight: 600;
-        }
-
-        /* Detailed Options */
-        .detailed-options {
-            margin-top: 48px;
-        }
-
-        .option-detail {
-            background: #fafafa;
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 24px;
-            border-left: 4px solid #667eea;
-        }
-
-        .option-detail h4 {
-            color: #667eea;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .option-detail ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .option-detail li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .option-detail li:last-child {
-            border-bottom: none;
-        }
-
-        .option-detail li strong {
-            color: #667eea;
-            font-weight: 600;
-            min-width: 80px;
-            display: inline-block;
-        }
-
-        /* Time Activity */
-        .time-activity {
-            display: flex;
-            margin-bottom: 24px;
-            align-items: flex-start;
-            gap: 20px;
-            padding: 20px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .time-activity:last-child {
-            border-bottom: none;
-        }
-
-        .time-badge {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            min-width: 100px;
-            text-align: center;
-            flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-        }
-
-        .activity-content {
-            flex: 1;
-            color: #2c2c2c;
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        .activity-content strong {
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        /* Tips Section */
-        .tips-section {
-            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
-            border-radius: 20px;
-            padding: 48px 40px;
-            margin-top: 64px;
-        }
-
-        .tips-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 32px;
-            color: #2c2c2c;
-            text-align: center;
-        }
-
-        .tip-item {
-            background: rgba(255, 255, 255, 0.8);
-            margin-bottom: 16px;
-            padding: 20px 24px;
-            border-radius: 12px;
-            border-left: 4px solid #fd79a8;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .tip-item strong {
-            color: #e84393;
-            font-weight: 600;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero {
-                padding: 60px 24px 40px;
-            }
-
-            .content {
-                padding: 60px 24px;
-            }
-
-            .overview-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-                gap: 24px;
-            }
-
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .day-header,
-            .day-content {
-                padding: 24px;
-            }
-
-            .option-detail {
-                padding: 24px;
-            }
-
-            .time-activity {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .time-badge {
-                align-self: flex-start;
-                min-width: auto;
-            }
-
-            .tips-section {
-                padding: 32px 24px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding: 40px 16px 32px;
-            }
-
-            .content {
-                padding: 40px 16px;
-            }
-
-            .day-header,
-            .day-content,
-            .option-detail,
-            .tips-section {
-                padding: 20px;
-            }
-
-            .overview-card {
-                padding: 24px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>胡志明市旅行計劃｜五天四夜</title>
+  <meta name="description" content="胡志明市五天四夜行程：航班住宿、每日路線、餐廳連結、提醒與小技巧。" />
+
+  <!-- Fonts & Icons (可留可去；載不到也不影響內容顯示) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- AOS (scroll animations) -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    html, body { transition: background-color .25s ease, color .25s ease; }
+    :root {
+      --bg: #fafafa;
+      --card: #ffffff;
+      --text: #2c2c2c;
+      --muted: #6b7280;
+      --border: #eeeeee;
+      --brandA: #667eea;
+      --brandB: #764ba2;
+      --brandG: linear-gradient(135deg, var(--brandA), var(--brandB));
+      --accent: #f1c40f;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    }
+    [data-theme="dark"] {
+      --bg: #0b0c10;
+      --card: #12151c;
+      --text: #e5e7eb;
+      --muted: #9aa3af;
+      --border: #1f2430;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', 'Microsoft JhengHei', sans-serif;
+      line-height: 1.65;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ✅ AOS Fallback：如果 AOS 沒載到，確保內容仍可見 */
+    [data-aos] { opacity: 1 !important; transform: none !important; visibility: visible !important; }
+
+    /* Top Nav */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(140%) blur(6px);
+      /* 避免 color-mix 相容性問題，改成半透明背景 */
+      background: rgba(255,255,255,0.65);
+      border-bottom: 1px solid var(--border);
+    }
+    [data-theme="dark"] .topbar { background: rgba(18,21,28,0.65); }
+
+    .topbar-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; gap: 16px;
+      padding: env(safe-area-inset-top) 20px 12px;
+    }
+    .brand {
+      font-weight: 800; letter-spacing: -0.02em;
+      background: var(--brandG); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: clamp(1.1rem, 2.2vw, 1.25rem);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .brand i { font-size: 1.1em; }
+    .nav { margin-left: auto; display: flex; gap: 14px; flex-wrap: wrap; }
+    .nav a {
+      color: var(--muted); text-decoration: none; font-weight: 600;
+      padding: 8px 10px; border-radius: 10px;
+    }
+    .nav a:hover { color: var(--text); background: var(--border); }
+    .actions { display: flex; gap: 8px; align-items: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 12px; border: 1px solid var(--border);
+      background: var(--card); color: var(--text); text-decoration: none;
+      font-weight: 600; box-shadow: var(--shadow); cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-ghost { background: transparent; box-shadow: none; }
+    .btn-primary { background: var(--brandG); color: #fff; border: none; }
+
+    /* Container */
+    .container {
+      max-width: 1200px; margin: 0 auto; background: transparent; min-height: 100vh;
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--brandG);
+      color: white;
+      padding: 90px 24px 70px;
+      text-align: center; position: relative; overflow: hidden;
+      border-bottom-left-radius: 32px; border-bottom-right-radius: 32px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" patternUnits="userSpaceOnUse" width="120" height="120"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="80" cy="40" r="0.8" fill="rgba(255,255,255,0.03)"/><circle cx="40" cy="80" r="1.2" fill="rgba(255,255,255,0.04)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') center/cover no-repeat;
+      opacity: .6;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 800; margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .subtitle { opacity: .95; font-size: clamp(1.05rem, 2.2vw, 1.25rem); margin-bottom: 20px; }
+    .intro-text {
+      max-width: 860px; margin: 0 auto;
+      font-size: 1.05rem; line-height: 1.75;
+      background: rgba(255,255,255,.12);
+      padding: 18px 22px; border-radius: 16px; backdrop-filter: blur(10px);
+    }
+    .hero-cta {
+      margin-top: 18px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    }
+
+    /* Sections */
+    .content { padding: 72px 20px; }
+    .section { margin-bottom: 72px; }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; text-align: center; color: var(--text);
+      margin-bottom: 34px; position: relative;
+    }
+    .section-title::after {
+      content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+      width: 64px; height: 4px; background: var(--brandG); border-radius: 2px;
+    }
+
+    /* Overview grid */
+    .overview-grid {
+      display: grid; gap: 24px;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+    .overview-card {
+      background: var(--card); border-radius: 18px; padding: 28px 26px;
+      border: 1px solid var(--border); box-shadow: var(--shadow); position: relative; overflow: hidden;
+      transition: transform .25s ease;
+    }
+    .overview-card:hover { transform: translateY(-4px); }
+    .overview-card::before {
+      content: ''; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--brandG);
+    }
+    .overview-card h4 {
+      font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+    }
+    .overview-card p { color: var(--muted); }
+    .flight-block { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed var(--border); }
+    .flight-block:last-child { border-bottom: none; margin-bottom: 0; }
+    .label { font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .flight-info { color: var(--muted); }
+
+    /* Accordion Day Schedule */
+    details.day {
+      border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+      background: var(--card); box-shadow: var(--shadow); margin-bottom: 18px;
+    }
+    details.day > summary {
+      list-style: none; cursor: pointer; user-select: none;
+      padding: 20px 22px; font-weight: 800; color: #fff; background: var(--brandG);
+      display: flex; align-items: center; gap: 10px;
+    }
+    details.day[open] > summary { border-bottom: 1px solid var(--border); }
+    details.day .day-content { padding: 26px 22px; }
+    .time-activity {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 16px 0; border-bottom: 1px solid var(--border);
+    }
+    .time-activity:last-child { border-bottom: none; }
+    .time-badge {
+      background: var(--brandG); color: #fff;
+      padding: 10px 14px; border-radius: 24px; font-weight: 700; min-width: 92px; text-align: center; box-shadow: 0 4px 12px rgba(102,126,234,.25);
+    }
+    .activity-content { flex: 1; color: var(--text); }
+    .activity-content strong { color: var(--brandA); }
+    .activity-content ul { margin-top: 8px; padding-left: 18px; }
+    .activity-content li { margin: 6px 0; }
+
+    /* Tips */
+    .tips {
+      background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+      border-radius: 18px; padding: 26px 22px; color: #2c2c2c;
+    }
+    .tip { background: rgba(255,255,255,.85); padding: 14px 16px; border-radius: 12px; border-left: 4px solid #fd79a8; margin: 10px 0; }
+
+    /* Footer */
+    .footer { padding: 28px 16px; text-align: center; color: var(--muted); border-top: 1px solid var(--border); }
+
+    /* Utilities */
+    .chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--card); color: var(--text); text-decoration: none; font-weight: 600;
+    }
+    .ext { text-decoration: none; border-bottom: 1px dashed currentColor; }
+    .ext:hover { opacity: .9; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .overview-grid { grid-template-columns: 1fr; }
+      .nav { display: none; } /* 窄螢幕簡化導覽 */
+    }
+
+    /* ✅ noscript Fallback：完全禁用 JS 時，打開所有行程 */
+    noscript .day { display: block; }
+    noscript details.day[open] > summary { border-bottom: 1px solid var(--border); }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="hero">
-            <div class="hero-content">
-                <h1>🇻🇳 東方小巴黎之旅</h1>
-                <div class="subtitle">胡志明市五天四夜精彩行程</div>
-                <div class="intro-text">
-                    這份五天四夜的行程專為喜愛自由彈性又不想花費太多心力的旅客設計，結合了胡志明市的歷史文化、自然生態與美食探索，讓你深度體驗「東方小巴黎」的獨特魅力。
-                </div>
-            </div>
-        </div>
-
-        <div class="content">
-            <div class="section">
-                <h2 class="section-title">✈️ 航班與住宿資訊</h2>
-                <div class="overview-grid">
-                    <div class="overview-card">
-                    <h4>✈️ 航班資訊</h4>
-                    <div class="flight-block">
-                        <p class="label">去程</p>
-                        <p class="date">2025/09/26（五）</p>
-                        <p class="route">19:35 台北（TPE） → 22:00 胡志明市（SGN）</p>
-                    </div>
-                    <div class="flight-block">
-                        <p class="label">回程</p>
-                        <p class="date">2025/09/30（二）</p>
-                        <p class="route">12:50 胡志明市（SGN） → 17:15 台北（TPE）</p>
-                    </div>
-                    </div>
-
-                    <div class="overview-card">
-                        <h4>🏨 住宿</h4>
-                        <p><strong>The Hammock Hotel Ben Thanh</strong><br>
-                        CP值高、活潑風格、鄰近濱城市場，地理位置絕佳，步行即可到達主要景點。</p>
-                    </div>
-                    <div class="overview-card">
-                        <h4>🗓️ 五天行程重點</h4>
-                        <p><strong>Day 1：</strong>晚間抵達，輕鬆夜市初探<br>
-                        <strong>Day 2：</strong>古芝地道＋湄公河一日遊<br>
-                        <strong>Day 3：</strong>法式建築與歷史巡禮<br>
-                        <strong>Day 4：</strong>第五郡探索＋購物<br>
-                        <strong>Day 5：</strong>早餐＋返程</p>
-                    </div>
-                    <div class="overview-card">
-                        <h4>🌟 行程特色</h4>
-                        <p>結合歷史文化、自然體驗與美食探索，專為喜愛自由彈性的旅人設計，深度體驗「東方小巴黎」的獨特魅力。</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section-title">📅 詳細行程安排</h2>
-
-                <div class="day-schedule">
-                    <div class="day-header">第一天：飛向東方小巴黎，夜色初探</div>
-                    <div class="day-content">
-                        <div class="time-activity">
-                            <div class="time-badge">19:35</div>
-                            <div class="activity-content">
-                                ✈️ 搭乘航班從台北（TPE）飛往胡志明市（SGN）。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">22:00</div>
-                            <div class="activity-content">
-                                🛬 抵達胡志明市新山一國際機場。建議使用<strong>Grab App</strong>叫車，前往位於第一郡的 <strong>The Hammock Hotel Ben Thanh</strong> 辦理入住。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">23:00</div>
-                            <div class="activity-content">
-                                🏨 入住飯店後，您可以稍作休息，或到飯店附近的<strong>濱城市場（Chợ Bến Thành）</strong>周邊夜市逛逛，感受胡志明市的熱鬧夜生活。
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-schedule">
-                    <div class="day-header">第二天：古芝地道＋湄公河一日遊</div>
-                    <div class="day-content">
-                        <div class="time-activity">
-                            <div class="time-badge">全天</div>
-                            <div class="activity-content">
-                                🛶 參與「<strong>古芝地道＋湄公河三角洲一日遊</strong>」（已預訂）。
-                                <ul>
-                                    <li>上午：探索古芝地道，了解越戰歷史，並體驗射擊。</li>
-                                    <li>下午：前往湄公河三角洲，遊船並參觀椰子糖工廠，體驗手搖船。</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">晚上</div>
-                            <div class="activity-content">
-                                🍜 享用 <strong>Phở Việt Nam 河粉晚餐</strong>。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">收尾</div>
-                            <div class="activity-content">
-                                💆‍♀️ 在回飯店前，可前往第一郡的沙龍體驗<strong>越式洗頭</strong>，放鬆身心。
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-schedule">
-                    <div class="day-header">第三天：法式建築、歷史巡禮與夜景</div>
-                    <div class="day-content">
-                        <div class="time-activity">
-                            <div class="time-badge">上午</div>
-                            <div class="activity-content">
-                                🌅 <strong>法式建築巡禮</strong><br>
-                                • <strong>西貢聖母大教堂</strong><br>
-                                • <strong>中央郵局</strong><br>
-                                • <strong>粉紅教堂</strong>
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">中午</div>
-                            <div class="activity-content">
-                                🍕 在 <strong>Pizza 4P's Ben Thanh</strong> 享用午餐。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">下午</div>
-                            <div class="activity-content">
-                                🏛️ <strong>歷史與文創探索</strong><br>
-                                • <strong>戰爭遺跡博物館</strong><br>
-                                • <strong>咖啡公寓（The Cafe Apartment）</strong>
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">晚上</div>
-                            <div class="activity-content">
-                                ✨ 欣賞 <strong>Bitexco 金融塔夜景</strong>，接著在 <strong>Bếp Mẹ Ỉn</strong> 享用晚餐。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">收尾</div>
-                            <div class="activity-content">
-                                🛀 可選擇到 <strong>Miu Miu</strong> 或 <strong>Norah Spa</strong> 享受越式按摩，徹底放鬆。
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-schedule">
-                    <div class="day-header">第四天：第五郡探索與購物</div>
-                    <div class="day-content">
-                        <div class="time-activity">
-                            <div class="time-badge">上午</div>
-                            <div class="activity-content">
-                                🏯 <strong>探索堤岸文化</strong><br>
-                                • 參觀 <strong>穗城會館</strong> 或 <strong>義安會館</strong>。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">中午</div>
-                            <div class="activity-content">
-                                🥟 品嚐 <strong>進發點心</strong>。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">下午</div>
-                            <div class="activity-content">
-                                🛍️ <strong>購物與咖啡時光</strong><br>
-                                • 逛 <strong>安東市場</strong> 或 <strong>Takashimaya</strong>。<br>
-                                • 在 <strong>Little HaNoi Egg Coffee</strong> 品嚐特色蛋咖啡。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">傍晚</div>
-                            <div class="activity-content">
-                                🥖 品嚐 <strong>Bánh Mì Huynh Hoa 越南法棍</strong>。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">收尾</div>
-                            <div class="activity-content">
-                                💇‍♀️ 挑選一家評價良好的沙龍，體驗<strong>越式洗頭</strong>。
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-schedule">
-                    <div class="day-header">第五天：早餐與歸途</div>
-                    <div class="day-content">
-                        <div class="time-activity">
-                            <div class="time-badge">上午</div>
-                            <div class="activity-content">
-                                🥞 享用早餐與咖啡。可選擇在飯店用餐，或到 <strong>Bánh Mì Hòa Mã</strong> 或 <strong>L’Usine Café</strong>。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">10:30</div>
-                            <div class="activity-content">
-                                🧳 返回飯店整理行李。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">11:00</div>
-                            <div class="activity-content">
-                                🚖 使用 Grab 前往胡志明市新山一國際機場。
-                            </div>
-                        </div>
-                        <div class="time-activity">
-                            <div class="time-badge">12:50</div>
-                            <div class="activity-content">
-                                🛫 搭乘航班從胡志明市（SGN）返回台北（TPE），結束精彩的旅程。
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tips-section">
-                <div class="tips-title">💡 溫馨提醒</div>
-                <div class="tip-item">
-                    <strong>交通</strong>：在胡志明市，Grab是您最方便、價格透明的交通方式，包含汽車與機車選項。
-                </div>
-                <div class="tip-item">
-                    <strong>天氣</strong>：九月是胡志明市的雨季，建議隨身攜帶雨具，通常是午後雷陣雨，來得快去得也快。
-                </div>
-                <div class="tip-item">
-                    <strong>換匯</strong>：建議在機場先換少量越盾，到市區的銀樓或金飾店換匯，匯率會更好。
-                </div>
-            </div>
-        </div>
+  <!-- Top Navigation -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><i class="fa-solid fa-plane-departure"></i> 東方小巴黎之旅</div>
+      <nav class="nav">
+        <a href="#overview">航班住宿</a>
+        <a href="#itinerary">行程</a>
+        <a href="#tips">提醒</a>
+      </nav>
+      <div class="actions">
+        <button id="themeToggle" class="btn btn-ghost" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i> 顯示模式</button>
+        <a class="btn btn-primary" href="https://www.google.com/maps" target="_blank" rel="noopener">打開地圖</a>
+      </div>
     </div>
-</body>
-</html>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero" role="banner">
+    <div class="hero-content" data-aos="zoom-in">
+      <h1>🇻🇳 胡志明市五天四夜</h1>
+      <p class="subtitle">結合歷史文化、自然體驗與美食探索，彈性但不費心。</p>
+      <p class="intro-text">
+        這份五天四夜的行程專為喜愛自由彈性又不想花費太多心力的旅客設計，結合了胡志明市的歷史文化、自然生態與美食探索，讓你深度體驗「東方小巴黎」的獨特魅力。
+      </p>
+      <div class="hero-cta">
+        <a class="chip" href="https://maps.app.goo.gl/wZUrPbFb3Xfo6XKa6" target="_blank" rel="noopener"><i class="fa-solid fa-hotel"></i> The Hammock Hotel Ben Thanh</a>
+        <a class="chip" href="https://maps.app.goo.gl/FDQ4WRt9c7xMHq2T9" target="_blank" rel="noopener"><i class="fa-solid fa-bag-shopping"></i> Takashimaya</a>
+        <a class="chip" href="https://maps.app.goo.gl/RDoN7MWF7fbsEzxZ9" target="_blank" rel="noopener"><i class="fa-regular fa-eye"></i> Saigon Skydeck</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Overview -->
+    <section id="overview" class="content section" aria-label="航班與住宿">
+      <h2 class="section-title" data-aos="fade-up">✈️ 航班與住宿資訊</h2>
+      <div class="overview-grid">
+        <article class="overview-card" data-aos="fade-up" data-aos-delay="0">
+          <h4><i class="fa-solid fa-plane"></i> 航班資訊</h4>
+          <div class="flight-block">
+            <p class="label">去程</p>
+            <p class="flight-info">
+              <strong>日期：</strong>2025/09/26（五）<br />
+              <strong>航空公司：</strong>長榮航空（EVA AIR）<br />
+              <strong>航班：</strong>BR 381<br />
+              <strong>時間：</strong>19:35 台北（TPE） → 22:00 胡志明市（SGN）<br />
+              <strong>機型：</strong>AIRBUS A330-300
+            </p>
+          </div>
+          <div class="flight-block">
+            <p class="label">回程</p>
+            <p class="flight-info">
+              <strong>日期：</strong>2025/09/30（二）<br />
+              <strong>航空公司：</strong>長榮航空（EVA AIR）<br />
+              <strong>航班：</strong>BR 392<br />
+              <strong>時間：</strong>12:50 胡志明市（SGN） → 17:15 台北（TPE）<br />
+              <strong>機型：</strong>BOEING 777-300ER
+            </p>
+          </div>
+        </article>
+
+        <article class="overview-card" data-aos="fade-up" data-aos-delay="80">
+          <h4><i class="fa-solid fa-hotel"></i> 住宿</h4>
+          <p>
+            <strong><a class="ext" href="https://maps.app.goo.gl/wZUrPbFb3Xfo6XKa6" target="_blank" rel="noopener">The Hammock Hotel Ben Thanh</a></strong><br />
+            CP值高、活潑風格、鄰近濱城市場，地理位置絕佳，步行即可到達主要景點。
+          </p>
+        </article>
+
+        <article class="overview-card" data-aos="fade-up" data-aos-delay="120">
+          <h4><i class="fa-solid fa-list-check"></i> 五天行程重點</h4>
+          <p>
+            <strong>Day 1：</strong>晚間抵達，輕鬆夜市初探<br />
+            <strong>Day 2：</strong>古芝地道＋湄公河一日遊<br />
+            <strong>Day 3：</strong>法式建築與歷史巡禮<br />
+            <strong>Day 4：</strong>第五郡探索＋購物<br />
+            <strong>Day 5：</strong>早餐＋返程
+          </p>
+        </article>
+
+        <article class="overview-card" data-aos="fade-up" data-aos-delay="180">
+          <h4><i class="fa-solid fa-star"></i> 行程特色</h4>
+          <p>結合歷史文化、自然體驗與美食探索，專為喜愛自由彈性的旅人設計，深度體驗「東方小巴黎」的獨特魅力。</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Itinerary -->
+    <section id="itinerary" class="content section" aria-label="詳細行程安排">
+      <h2 class="section-title" data-aos="fade-up">📅 詳細行程安排</h2>
+
+      <!-- Day 1 -->
+      <details class="day" open data-aos="fade-up">
+        <summary>第一天：飛向東方小巴黎，夜色初探</summary>
+        <div class="day-content">
+          <div class="time-activity">
+            <div class="time-badge">19:35</div>
+            <div class="activity-content">✈️ 搭乘長榮航空 BR 381 航班從台北（TPE）飛往胡志明市（SGN）。</div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">22:00</div>
+            <div class="activity-content">
+              🛬 抵達胡志明市新山一國際機場。建議使用 <strong><a class="ext" href="https://www.grab.com/vn/" target="_blank" rel="noopener">Grab App</a></strong> 叫車，前往位於第一郡的
+              <strong><a class="ext" href="https://maps.app.goo.gl/wZUrPbFb3Xfo6XKa6" target="_blank" rel="noopener">The Hammock Hotel Ben Thanh</a></strong> 辦理入住。
+            </div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">23:00</div>
+            <div class="activity-content">
+              🏨 入住後，可到<strong>濱城市場（Chợ Bến Thành）</strong>周邊夜市逛逛。
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 2 -->
+      <details class="day" data-aos="fade-up">
+        <summary>第二天：古芝地道＋湄公河一日遊</summary>
+        <div class="day-content">
+          <div class="time-activity">
+            <div class="time-badge">全天</div>
+            <div class="activity-content">
+              🛶 參與「<strong>古芝地道＋湄公河三角洲一日遊</strong>」
+              <ul>
+                <li>上午：探索 <strong>古芝地道</strong>。</li>
+                <li>下午：湄公河三角洲遊船、椰子糖工廠、手搖船體驗。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">晚上</div>
+            <div class="activity-content">🍜 享用 <strong>Phở Việt Nam</strong> 河粉晚餐。</div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">收尾</div>
+            <div class="activity-content">
+              💆‍♀️ 回飯店前，可體驗越式洗頭。
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 3 -->
+      <details class="day" data-aos="fade-up">
+        <summary>第三天：法式建築、歷史巡禮與夜景</summary>
+        <div class="day-content">
+          <div class="time-activity">
+            <div class="time-badge">上午</div>
+            <div class="activity-content">
+              🌅 <strong>法式建築巡禮</strong><br />
+              • <strong>西貢聖母大教堂</strong>（Notre-Dame Basilica）<br />
+              • <strong>中央郵局</strong>（Saigon Central Post Office）<br />
+              • <strong>粉紅教堂</strong>（Tân Định Church）
+            </div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">中午</div>
+            <div class="activity-content">
+              🍕 在
+              <strong><a class="ext" href="https://maps.app.goo.gl/U2dUtP5LA1iU9NU17" target="_blank" rel="noopener">Pizza 4P's Ben Thanh</a></strong>
+              享用午餐。
+            </div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">下午</div>
+            <div class="activity-content">
+              🏛️ <strong>歷史與文創探索</strong><br />
+              • <strong><a class="ext" href="https://maps.app.goo.gl/N42TLuFJHFfAmUS56" target="_blank" rel="noopener">戰爭遺跡博物館</a></strong><br />
+              • <strong><a class="ext" href="https://www.google.com/maps/search/42+Nguy%E1%BB%85n+Hu%E1%BB%87+The+Cafe+Apartment/" target="_blank" rel="noopener">咖啡公寓（The Cafe Apartment）</a></strong>
+            </div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">晚上</div>
+            <div class="activity-content">
+              ✨ 欣賞
+              <strong><a class="ext" href="https://maps.app.goo.gl/RDoN7MWF7fbsEzxZ9" target="_blank" rel="noopener">Bitexco 金融塔 Saigon Skydeck</a></strong>
+              夜景，接著在
+              <strong><a class="ext" href="https://maps.app.goo.gl/B9KKqDySAU8Dg1PMA" target="_blank" rel="noopener">Bếp Mẹ Ỉn</a></strong> 享用晚餐。
+            </div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">收尾</div>
+            <div class="activity-content">
+              🛀 可選擇到
+              <strong><a class="ext" href="https://miumiuspa.com/" target="_blank" rel="noopener">Miu Miu</a></strong>
+              或
+              <strong><a class="ext" href="https://www.norahspa.com/" target="_blank" rel="noopener">Norah Spa</a></strong>
+              享受越式按摩。
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 4 -->
+      <details class="day" data-aos="fade-up">
+        <summary>第四天：第五郡探索與購物</summary>
+        <div class="day-content">
+          <div class="time-activity">
+            <div class="time-badge">上午</div>
+            <div class="activity-content">
+              🏯 <strong>探索堤岸文化</strong><br />
+              • 參觀 <strong><a class="ext" href="https://www.google.com/maps/search/%E7%BE%A9%E5%AE%89%E6%9C%83%E9%A4%A8+Nghia+An+Hoi+Quan/" target="_blank" rel="noopener">義安會館</a></strong>（Chùa Ông）或
+              <strong><a class="ext" href="https://www.google.com/maps/search/%E7%A9%97%E5%9F%8E%E6%9C%83%E9%A4%A8+Tue+Thanh+Hoi+Quan/" target="_blank" rel="noopener">穗城會館</a></strong>。
+            </div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">中午</div>
+            <div class="activity-content">
+              🥟 品嚐 <strong><a class="ext" href="https://maps.app.goo.gl/N33NRXe6rSgWyZcK7" target="_blank" rel="noopener">進發點心（Tiến Phát Dim Sum）</a></strong>。
+            </div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">下午</div>
+            <div class="activity-content">
+              🛍️ <strong>購物與咖啡時光</strong><br />
+              • 逛 <strong><a class="ext" href="https://www.google.com/maps/search/An+Dong+Market+District+5/" target="_blank" rel="noopener">安東市場</a></strong> 或
+              <strong><a class="ext" href="https://maps.app.goo.gl/FDQ4WRt9c7xMHq2T9" target="_blank" rel="noopener">Takashimaya</a></strong>。<br />
+              • 在 <strong><a class="ext" href="https://maps.app.goo.gl/UtfVvYzi33n5u3Sh6" target="_blank" rel="noopener">Little HaNoi Egg Coffee</a></strong> 品嚐特色蛋咖啡。
+            </div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">傍晚</div>
+            <div class="activity-content">
+              🥖 品嚐 <strong><a class="ext" href="https://maps.app.goo.gl/rVhNk72HeXJfF4De7" target="_blank" rel="noopener">Bánh Mì Huynh Hoa</a></strong> 越南法棍。
+            </div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">收尾</div>
+            <div class="activity-content">
+              💇‍♀️ 挑選一家評價良好的沙龍，體驗<strong>越式洗頭</strong>。
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- Day 5 -->
+      <details class="day" data-aos="fade-up">
+        <summary>第五天：早餐與歸途</summary>
+        <div class="day-content">
+          <div class="time-activity">
+            <div class="time-badge">上午</div>
+            <div class="activity-content">
+              🥞 享用早餐與咖啡。可選擇在飯店用餐，或到
+              <strong><a class="ext" href="https://maps.app.goo.gl/adFLiewG7K5CV1HS9" target="_blank" rel="noopener">Bánh Mì Hòa Mã</a></strong>
+            </div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">10:30</div>
+            <div class="activity-content">🧳 返回飯店整理行李。</div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">11:00</div>
+            <div class="activity-content">🚖 使用 Grab 前往胡志明市新山一國際機場。</div>
+          </div>
+          <div class="time-activity">
+            <div class="time-badge">12:50</div>
+            <div class="activity-content">🛫 搭乘長榮航空 BR 392 返台，結束精彩旅程。</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- Tips -->
+    <section id="tips" class="content section" aria-label="溫馨提醒">
+      <h2 class="section-title" data-aos="fade-up">💡 溫馨提醒</h2>
+      <div class="tips" data-aos="fade-up">
+        <div class="tip"><strong>交通</strong>：在胡志明市，Grab 是最方便、價格透明的交通方式，包含汽車與機車選項。</div>
+        <div class="tip"><strong>天氣</strong>：九月為雨季，記得攜帶輕便雨具；午後雷陣雨多、來去快。</div>
+        <div class="tip"><strong>換匯</strong>：機場先換少量越盾，到市區銀樓/金飾店換通常匯率更好。</div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Made by Rola Jeng 2025</p>
+    </footer>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  // 安全初始化 AOS；載不到就略過（不會影響顯示）
+  try { AOS.init({ once: true, duration: 600, easing: 'ease-out-cubic' }); }
+  catch (e) { console.warn('AOS not loaded; running without animations.'); }
+
+  // ===== Dark/Light Theme 安全切換 =====
+  (function () {
+    const root = document.documentElement;     // <html>
+    const btn  = document.getElementById('themeToggle');
+
+    // 有些情境（file://、隱私模式、嚴格CSP）localStorage 會拋錯
+    const store = {
+      get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+      set(k, v) { try { localStorage.setItem(k, v); } catch {} },
+    };
+
+    const prefersDark =
+      window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // 1) 讀使用者記錄 -> 2) 讀 html 現有屬性 -> 3) 讀系統偏好 -> 4) 預設 light
+    let theme = store.get('hcmc_theme') || root.getAttribute('data-theme') || (prefersDark ? 'dark' : 'light');
+    apply(theme);
+
+    btn && btn.addEventListener('click', () => {
+      theme = (root.getAttribute('data-theme') === 'light') ? 'dark' : 'light';
+      apply(theme);
+      store.set('hcmc_theme', theme);
+    });
+
+    function apply(t) {
+      root.setAttribute('data-theme', t);
+      if (!btn) return;
+      btn.innerHTML = (t === 'dark')
+        ? '<i class="fa-solid fa-sun"></i> 顯示模式'
+        : '<i class="fa-solid fa-moon"></i> 顯示模式';
+    }
+  })();
+</script>
